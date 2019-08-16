@@ -24,17 +24,27 @@ namespace Repository.Models
             this.Delete(deathDate);
         }
 
-        public IEnumerable<DeathDate> GetAllDateBetween(DateTime startDate, DateTime endDate)
+        public IEnumerable<DeathDate> GetAllDateBetween(DateTime startDate, DateTime endDate, Guid? dateNotIncludedId = null)
         {
-            var deathDatesFind = this.FindByCondition(deathDate => deathDate.StartDate >= startDate && deathDate.StartDate <= endDate)
-                                    .ToList();
-            return deathDatesFind;
+            var deathDatesFind = this.FindByCondition(deathDate =>
+                                        (deathDate.StartDate >= startDate && deathDate.StartDate <= endDate) ||
+                                        (deathDate.EndDate > startDate && deathDate.EndDate < endDate));
+            if (dateNotIncludedId != null)
+            {
+                deathDatesFind = deathDatesFind.Where(deathDate => !deathDate.Id.Equals(dateNotIncludedId));
+            }
+                                    
+            return deathDatesFind.ToList();
         }
 
-        public IEnumerable<DeathDate> GetAllDates()
+        public IEnumerable<DeathDate> GetAllDates(int? year = null, int? month = null)
         {
-            var deathDatesFind = this.FindAll().ToList();
-            return deathDatesFind;
+            var deathDatesFind = this.FindAll();
+            if (year != null && month != null)
+            {
+                deathDatesFind = deathDatesFind.Where(deathDate => deathDate.StartDate.Year == year.Value && deathDate.StartDate.Month == month);
+            }
+            return deathDatesFind.ToList();
         }
 
         public DeathDate GetDateById(Guid Id)

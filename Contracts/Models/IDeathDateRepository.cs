@@ -8,9 +8,9 @@ namespace Contracts.Models
 {
     public interface IDeathDateRepository: IRepositoryBase<DeathDate>
     {
-        IEnumerable<DeathDate> GetAllDates();
+        IEnumerable<DeathDate> GetAllDates(int? year = null, int? month = null);
 
-        IEnumerable<DeathDate> GetAllDateBetween(DateTime startDate, DateTime endDate);
+        IEnumerable<DeathDate> GetAllDateBetween(DateTime startDate, DateTime endDate, Guid? dateNotIncludedId = null);
 
         DeathDate GetDateById(Guid Id);
 

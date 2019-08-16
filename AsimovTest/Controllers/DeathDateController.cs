@@ -26,11 +26,11 @@ namespace AsimovTest.Controllers
         [ProducesResponseType(401)]
         [ProducesResponseType(403)]
         [ProducesResponseType(500)]
-        public IActionResult Get()
+        public IActionResult Get(int? year, int? month)
         {
             try
             {
-                var deathDatesFind = this.deathDateBR.GetAllDates();
+                var deathDatesFind = this.deathDateBR.GetAllDates(year, month);
                 if (deathDatesFind.IsListObjectNull() || deathDatesFind.IsEmptyListObject()) { return NoContent(); }
 
                 return Ok(deathDatesFind);
@@ -74,7 +74,8 @@ namespace AsimovTest.Controllers
             if (!ModelState.IsValid) { return BadRequest(new { Message = "Invalid model object" }); }
             try
             {
-                this.deathDateBR.CreateDate(deathDateNew);
+                var secuence = this.deathDateBR.CreateDate(deathDateNew);
+                if (!secuence) { return BadRequest(new { Message = "DeathDate Object is not Created" }); }
                 if (deathDateNew.IsEmptyObject()) { return BadRequest(new { Message = "DeathDate Object is not Created" }); }
 
                 return CreatedAtRoute("DeathDateById", new { id = deathDateNew.Id }, deathDateNew);
