@@ -5,8 +5,8 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Entities.Models
 {
-    [Table("Date")]
-    public class Date : IEntity
+    [Table("DeathDate")]
+    public class DeathDate : IEntity
     {
         [Key]
         public Guid Id { get; set; }
@@ -19,5 +19,8 @@ namespace Entities.Models
 
         [Column]
         public string Title { get; set; }
+
+        [Column]
+        public string ContactEmail { get; set; }
     }
 }
