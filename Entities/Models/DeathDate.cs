@@ -12,10 +12,10 @@ namespace Entities.Models
         public Guid Id { get; set; }
 
         [Column]
-        public DateTime StartDate { get; set; }
+        public DateTime Start { get; set; }
 
         [Column]
-        public DateTime EndDate { get; set; }
+        public DateTime End { get; set; }
 
         [Column]
         public string Title { get; set; }

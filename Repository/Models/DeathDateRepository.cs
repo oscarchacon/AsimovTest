@@ -27,8 +27,8 @@ namespace Repository.Models
         public IEnumerable<DeathDate> GetAllDateBetween(DateTime startDate, DateTime endDate, Guid? dateNotIncludedId = null)
         {
             var deathDatesFind = this.FindByCondition(deathDate =>
-                                        (deathDate.StartDate >= startDate && deathDate.StartDate <= endDate) ||
-                                        (deathDate.EndDate > startDate && deathDate.EndDate < endDate));
+                                        (deathDate.Start >= startDate && deathDate.Start <= endDate) ||
+                                        (deathDate.End > startDate && deathDate.End < endDate));
             if (dateNotIncludedId != null)
             {
                 deathDatesFind = deathDatesFind.Where(deathDate => !deathDate.Id.Equals(dateNotIncludedId));
@@ -42,7 +42,7 @@ namespace Repository.Models
             var deathDatesFind = this.FindAll();
             if (year != null && month != null)
             {
-                deathDatesFind = deathDatesFind.Where(deathDate => deathDate.StartDate.Year == year.Value && deathDate.StartDate.Month == month);
+                deathDatesFind = deathDatesFind.Where(deathDate => deathDate.Start.Year == year.Value && deathDate.Start.Month == month);
             }
             return deathDatesFind.ToList();
         }

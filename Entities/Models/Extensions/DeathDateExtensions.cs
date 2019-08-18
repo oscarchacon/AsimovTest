@@ -8,8 +8,8 @@ namespace Entities.Models.Extensions
     {
         public static void Map(this DeathDate dbDeathDate, DeathDate deathDate)
         {
-            dbDeathDate.StartDate = deathDate.StartDate;
-            dbDeathDate.EndDate = deathDate.EndDate;
+            dbDeathDate.Start = deathDate.Start;
+            dbDeathDate.End = deathDate.End;
             dbDeathDate.Title = deathDate.Title;
             dbDeathDate.ContactEmail = deathDate.ContactEmail;
         }

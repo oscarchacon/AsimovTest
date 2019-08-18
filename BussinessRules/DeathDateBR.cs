@@ -47,12 +47,12 @@ namespace BusinessRules
         {
             try
             {
-                if (!this.IsOfficeHours(deathDateNew.StartDate) || !this.IsOfficeHours(deathDateNew.EndDate)) { return false; }
-                if (this.IsWeekend(deathDateNew.StartDate) || this.IsWeekend(deathDateNew.EndDate)) { return false; }
-                if (this.IsDifferentDay(deathDateNew.StartDate, deathDateNew.EndDate)) { return false; }
-                if (this.DiffHoursInSeconds(deathDateNew.StartDate, deathDateNew.EndDate) > 3600) { return false; }
+                if (!this.IsOfficeHours(deathDateNew.Start) || !this.IsOfficeHours(deathDateNew.End)) { return false; }
+                if (this.IsWeekend(deathDateNew.Start) || this.IsWeekend(deathDateNew.End)) { return false; }
+                if (this.IsDifferentDay(deathDateNew.Start, deathDateNew.End)) { return false; }
+                if (this.DiffHoursInSeconds(deathDateNew.Start, deathDateNew.End) > 3600) { return false; }
 
-                var deathDatesFind = this.repository.DeathDate.GetAllDateBetween(deathDateNew.StartDate, deathDateNew.EndDate);
+                var deathDatesFind = this.repository.DeathDate.GetAllDateBetween(deathDateNew.Start, deathDateNew.End);
                 if (deathDatesFind != null)
                 {
                     if (deathDatesFind.Count() > 0) { return false; }
@@ -74,14 +74,14 @@ namespace BusinessRules
             {
                 var dbDeathDate = this.repository.DeathDate.GetDateById(dateId);
                 if (dbDeathDate.IsEmptyObject() || dbDeathDate.IsObjectNull()) { return false; }
-                if (dbDeathDate.StartDate != deathDateUpdated.StartDate || dbDeathDate.EndDate != deathDateUpdated.EndDate)
+                if (dbDeathDate.Start != deathDateUpdated.Start || dbDeathDate.End != deathDateUpdated.End)
                 {
-                    if (!this.IsOfficeHours(deathDateUpdated.StartDate) || !this.IsOfficeHours(deathDateUpdated.EndDate)) { return false; }
-                    if (this.IsWeekend(deathDateUpdated.StartDate) || this.IsWeekend(deathDateUpdated.EndDate)) { return false; }
-                    if (this.IsDifferentDay(deathDateUpdated.StartDate, deathDateUpdated.EndDate)) { return false; }
-                    if (this.DiffHoursInSeconds(deathDateUpdated.StartDate, deathDateUpdated.EndDate) > 3600) { return false; }
+                    if (!this.IsOfficeHours(deathDateUpdated.Start) || !this.IsOfficeHours(deathDateUpdated.End)) { return false; }
+                    if (this.IsWeekend(deathDateUpdated.Start) || this.IsWeekend(deathDateUpdated.End)) { return false; }
+                    if (this.IsDifferentDay(deathDateUpdated.Start, deathDateUpdated.End)) { return false; }
+                    if (this.DiffHoursInSeconds(deathDateUpdated.Start, deathDateUpdated.End) > 3600) { return false; }
 
-                    var deathDatesFind = this.repository.DeathDate.GetAllDateBetween(deathDateUpdated.StartDate, deathDateUpdated.EndDate, dateId);
+                    var deathDatesFind = this.repository.DeathDate.GetAllDateBetween(deathDateUpdated.Start, deathDateUpdated.End, dateId);
                     if (deathDatesFind != null)
                     {
                         if (deathDatesFind.Count() > 0) { return false; }
