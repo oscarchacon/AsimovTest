@@ -44,6 +44,8 @@ namespace Repository.Models
             {
                 deathDatesFind = deathDatesFind.Where(deathDate => deathDate.Start.Year == year.Value && deathDate.Start.Month == month);
             }
+            deathDatesFind = deathDatesFind.OrderBy(deathDate => deathDate.Start);
+
             return deathDatesFind.ToList();
         }
 

@@ -37,8 +37,11 @@ namespace AsimovTest.Extensions
 
         public static void ConfigureDbContext(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<RepositoryContext>(option =>
-                option.UseSqlite(configuration.GetConnectionString("DefaultConnection")));
+            /*services.AddDbContext<RepositoryContext>(option =>
+                option.UseSqlite(configuration.GetConnectionString("DefaultConnection")));*/
+            services.AddEntityFrameworkNpgsql()                    
+                    .AddDbContext<RepositoryContext>(option => 
+                        option.UseNpgsql(configuration.GetConnectionString("Postgres")));
         }
 
         public static void ConfigureRepositoriesWrappers(this IServiceCollection services)
